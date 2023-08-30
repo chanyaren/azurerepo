@@ -1,0 +1,11 @@
+{
+	"name": "AzureBlob",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"containerUri": "https://firstblob89.blob.core.windows.net/input",
+			"authenticationType": "Anonymous"
+		}
+	}
+}
