@@ -1,0 +1,65 @@
+{
+	"name": "blobtodl",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "sourceblob",
+						"type": "DatasetReference",
+						"parameters": {
+							"sourcefolder": {
+								"value": "@pipeline().parameters.sourcefolder",
+								"type": "Expression"
+							},
+							"sourcefile": {
+								"value": "@pipeline().parameters.sourcefile",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"sourcefolder": {
+				"type": "string"
+			},
+			"sourcefile": {
+				"type": "string"
+			},
+			"destfolder": {
+				"type": "string"
+			},
+			"destfile": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	}
+}
