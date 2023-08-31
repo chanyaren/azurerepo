@@ -26,7 +26,26 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
@@ -43,21 +62,41 @@
 							}
 						}
 					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Destdl",
+						"type": "DatasetReference",
+						"parameters": {
+							"destfolder": {
+								"value": "@pipeline().parameters.destfolder",
+								"type": "Expression"
+							},
+							"destfile": {
+								"value": "@pipeline().parameters.destfile",
+								"type": "Expression"
+							}
+						}
+					}
 				]
 			}
 		],
 		"parameters": {
 			"sourcefolder": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "input"
 			},
 			"sourcefile": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "blob1.csv"
 			},
 			"destfolder": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "datalakelanding"
 			},
 			"destfile": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "dl1.csv"
 			}
 		},
 		"annotations": []
